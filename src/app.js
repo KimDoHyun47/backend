@@ -36,6 +36,9 @@ app.use((error, _req, res, _next) => {
   if (error.message === "CORS origin not allowed") {
     return res.status(403).json({ message: "허용되지 않은 origin입니다." });
   }
+  if (error.statusCode) {
+    return res.status(error.statusCode).json({ message: error.message });
+  }
   console.error(error);
   res.status(500).json({ message: "서버 오류가 발생했습니다." });
 });
