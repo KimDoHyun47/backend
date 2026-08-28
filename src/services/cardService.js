@@ -12,6 +12,16 @@ const normalizeCardInput = (payload) => {
   return { title, content };
 };
 
+const normalizePassword = (payload) => {
+  const password = String(payload?.password ?? "").trim();
+
+  if (!password) {
+    throw new AppError("비밀번호를 입력해 주세요.", 400);
+  }
+
+  return password;
+};
+
 const getCards = () => cardRepository.findAll();
 
 const getCardById = async (id) => {
@@ -26,7 +36,8 @@ const getCardById = async (id) => {
 
 const createCard = (payload) => {
   const data = normalizeCardInput(payload);
-  return cardRepository.create(data);
+  const password = normalizePassword(payload);
+  return cardRepository.create({ ...data, password });
 };
 
 const updateCard = async (id, payload) => {

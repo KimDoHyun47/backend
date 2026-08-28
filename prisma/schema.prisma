@@ -13,6 +13,7 @@ model Card {
   id        String   @id @default(uuid())
   title     String
   content   String   @default("")
+  password  String   @default("0000")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
