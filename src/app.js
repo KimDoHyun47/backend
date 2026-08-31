@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const cardRoutes = require("./card/cardRoutes");
+const prisma = require("./lib/prisma");
+const { prismaCode, prismaUserMessage } = require("./errors/prismaError");
 
 const app = express();
 
@@ -22,8 +24,19 @@ app.use(
 );
 app.use(express.json());
 
-app.get("/health", (_req, res) => {
-  res.json({ ok: true });
+app.get("/health", async (_req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({ ok: true, db: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      ok: false,
+      db: false,
+      code: prismaCode(error),
+      message: prismaUserMessage(error, "데이터베이스 상태를 확인하지 못했습니다."),
+    });
+  }
 });
 
 app.use("/cards", cardRoutes);

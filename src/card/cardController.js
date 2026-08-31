@@ -1,5 +1,6 @@
 const cardService = require("./cardService");
 const AppError = require("../errors/AppError");
+const { prismaCode, prismaUserMessage } = require("../errors/prismaError");
 
 const handle = (fn, fallbackMessage) => async (req, res) => {
   try {
@@ -10,7 +11,10 @@ const handle = (fn, fallbackMessage) => async (req, res) => {
     }
 
     console.error(error);
-    res.status(500).json({ message: fallbackMessage });
+    res.status(500).json({
+      message: prismaUserMessage(error, fallbackMessage),
+      code: prismaCode(error),
+    });
   }
 };
 
