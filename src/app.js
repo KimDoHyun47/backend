@@ -22,11 +22,11 @@ app.use(
 );
 app.use(express.json());
 
-app.get("/api/health", (_req, res) => {
+app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
 
-app.use("/api/cards", cardRoutes);
+app.use("/cards", cardRoutes);
 
 app.use((_req, res) => {
   res.status(404).json({ message: "요청한 경로를 찾을 수 없습니다." });
