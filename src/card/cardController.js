@@ -1,4 +1,4 @@
-const cardService = require("../services/cardService");
+const cardService = require("./cardService");
 const AppError = require("../errors/AppError");
 
 const handle = (fn, fallbackMessage) => async (req, res) => {

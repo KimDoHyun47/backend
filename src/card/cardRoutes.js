@@ -1,6 +1,6 @@
 const express = require("express");
-const cardController = require("../controllers/cardController");
-const verifyCardPassword = require("../middleware/verifyCardPassword");
+const cardController = require("./cardController");
+const verifyCardPassword = require("./verifyCardPassword");
 
 const router = express.Router();
 

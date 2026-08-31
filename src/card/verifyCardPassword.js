@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const cardRepository = require("../repositories/cardRepository");
+const cardRepository = require("./cardRepository");
 const AppError = require("../errors/AppError");
 
 const passwordsMatch = (input, stored) => {
